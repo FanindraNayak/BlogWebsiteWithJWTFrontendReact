@@ -13,7 +13,7 @@ function Register() {
 		imageData: "",
 		userDescription: "",
 	});
-
+	console.table("hi", dataOfUser);
 	const handelChange = (e) => {
 		setDataOfUser({ ...dataOfUser, [e.target.name]: e.target.value });
 	};
@@ -32,111 +32,94 @@ function Register() {
 				confirmPassword: "",
 				userWork: "",
 				imageData: "",
-				userDescription: "",
 			});
 		}
 		console.log(res);
 	};
-	const labes = (name) => {
-		return <label>{name}</label>;
+	// File One
+	const uploadImage = async (e) => {
+		const file = e.target.files[0];
+		const base64Data = await convertToBase64(file);
+		// console.log(base64Data);
+		setDataOfUser({ ...dataOfUser, imageData: base64Data });
 	};
+	const convertToBase64 = (file) => {
+		return new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsDataURL(file);
 
+			fileReader.onload = () => {
+				resolve(fileReader.result);
+			};
+			fileReader.onerror = (error) => {
+				reject(error);
+			};
+		});
+	};
 	return (
 		<div style={{ marginTop: 30 }}>
-			<form>
-				{labes("First Name")}
+			<form className="RegisterForm">
 				<input
 					type="text"
 					name="firstName"
 					className="firstName"
 					value={dataOfUser.firstName}
 					onChange={handelChange}
+					placeholder="First name"
 				/>
-				<br />
-				<br />
-				{labes("Mid Name")}
 				<input
 					type="text"
-					value={dataOfUser.midName}
-					name="midName"
-					className="midName"
-					onChange={handelChange}
-				/>
-				<br />
-				<br />
-				{labes("Last Name")}
-				<input
-					type="text"
-					value={dataOfUser.lastName}
 					name="lastName"
 					className="lastName"
+					value={dataOfUser.lastName}
 					onChange={handelChange}
+					placeholder="Last Name"
 				/>
 				<br />
-				<br />
-				{labes("Email")}
 				<input
 					type="text"
-					value={dataOfUser.email}
 					name="email"
-					className="email"
+					className="emailRegister"
+					value={dataOfUser.email}
 					onChange={handelChange}
+					placeholder="Email"
 				/>
 				<br />
-				<br />
-				{labes("Password")}
 				<input
 					type="password"
-					value={dataOfUser.password}
 					name="password"
 					className="password"
+					value={dataOfUser.password}
 					onChange={handelChange}
+					placeholder="Password"
 				/>
 				<br />
-				<br />
-				{labes("Confirm Password")}
 				<input
 					type="password"
-					value={dataOfUser.confirmPassword}
 					name="confirmPassword"
 					className="confirmPassword"
+					value={dataOfUser.confirmPassword}
 					onChange={handelChange}
+					placeholder="Confirm Password"
 				/>
 				<br />
-				<br />
-				{labes("User Work")}
 				<input
 					type="text"
-					value={dataOfUser.userWork}
 					name="userWork"
 					className="userWork"
+					value={dataOfUser.userWork}
 					onChange={handelChange}
+					placeholder="User Work"
 				/>
 				<br />
-				<br />
-				{labes("Image")}
 				<input
-					type="text"
-					value={dataOfUser.imageData}
-					name="imageData"
-					className="imageData"
-					onChange={handelChange}
+					type="file"
+					onChange={(e) => uploadImage(e)}
+					className="fileInput"
 				/>
 				<br />
-				<br />
-				{labes("User Description")}
-				<input
-					type="text"
-					value={dataOfUser.userDescription}
-					name="userDescription"
-					className="userDescription"
-					onChange={handelChange}
-				/>
-				<br />
-				<br />
-				<br />
-				<button colorScheme="teal" variant="outline" onClick={handelClick}>
-					Registration
+				<button onClick={handelClick} type="submit" className="buttons">
+					Register
 				</button>
 			</form>
 		</div>

@@ -1,28 +1,28 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Cards from "./Cards";
-import { useHistory } from "react-router-dom";
-const Home = () => {
-	const [allPostsData, setAllPostsData] = useState([]);
+import axios from "axios";
+import { useHistory } from "react-router";
+import { useUserData } from "../../GlobalState";
+import Cards from "../Home/Cards";
+const UserPosts = () => {
+	const userData = useUserData((state) => state.userData);
+	const [userPosts, setUserPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		getAllThePosts();
+		getThePostCreatedByTheUser();
 	}, []);
-	const getAllThePosts = async () => {
+	const getThePostCreatedByTheUser = async () => {
 		setLoading(true);
-		const url = `http://localhost:3012/api/post/getAllPosts`;
+		const url = `http://localhost:3012/api/post/getPostByUserId/${userData.userId}`;
 		const res = await axios.get(url, {
 			withCredentials: true,
 		});
-		if (res.data.length > 0) {
-			setAllPostsData(res.data);
-			setLoading(false);
-		}
+
+		setUserPosts(res.data);
+		setLoading(false);
 	};
 	const history = useHistory();
-
 	const allPostsMapped = () => {
-		return allPostsData.map((Value) => {
+		return userPosts.map((Value) => {
 			return (
 				<div
 					key={Value.postId}
@@ -41,9 +41,7 @@ const Home = () => {
 			);
 		});
 	};
-	return (
-		<div>{loading === false ? allPostsMapped() : <h1>Loading ...</h1>}</div>
-	);
+	return <div>{loading ? <h1>Loading ...</h1> : allPostsMapped()}</div>;
 };
 
-export default Home;
+export default UserPosts;

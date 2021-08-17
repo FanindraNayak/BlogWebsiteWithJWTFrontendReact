@@ -3,8 +3,8 @@ import Card from "react-bootstrap/Card";
 import abc from "../../Images/abc.png";
 const Cards = (props) => {
 	const {
-		postId,
 		userId,
+		postId,
 		imageOfPost,
 		title,
 		postDescription,
@@ -28,7 +28,11 @@ const Cards = (props) => {
 					</div>
 				</Card.Title>
 
-				<Card.Img style={{ height: "60vh" }} variant="top" src={abc} />
+				<Card.Img
+					style={{ height: "60vh" }}
+					variant="top"
+					src={imageOfPost === "" ? abc : imageOfPost}
+				/>
 				<Card.Body>
 					<Card.Text>{postDescription.slice(0, 50)} ..</Card.Text>
 					<Card.Text style={{ paddingBottom: "1vh" }}>

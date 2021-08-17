@@ -16,11 +16,15 @@ const NavBar = () => {
 					<Nav className="me-auto">
 						<Nav.Link>
 							{" "}
-							<Link to="" style={{ color: "white" }}>
+							<Link to="/user/posts" style={{ color: "white" }}>
 								User Posts
 							</Link>{" "}
 						</Nav.Link>
-						<Nav.Link>Create Post</Nav.Link>
+						<Nav.Link>
+							<Link to="/user/create/post" style={{ color: "white" }}>
+								Create Posts
+							</Link>
+						</Nav.Link>
 						<Nav.Link>
 							<Link to="/about/me" style={{ color: "white" }}>
 								User Info

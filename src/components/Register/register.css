@@ -1,51 +1,27 @@
-label {
-	/* background-color: aqua; */
-	margin-right: 100px;
-	/* padding-right: 12px; */
-	font-size: 20px;
-	/* border: rgb(41, 113, 221) 2px solid; */
+.RegisterForm {
+	padding-top: -4vh;
+	margin-left: 10vw;
 }
-
-input {
-	background-color: rgb(248, 248, 248);
-	margin-bottom: 100px;
-	border: rgb(41, 113, 221) 2px solid;
-	width: max-content;
+.RegisterForm > input {
+	margin-bottom: 10px;
 }
 .firstName {
-	padding: 5px;
-}
-.midName {
-	padding: 5px;
+	width: 11.5vw;
+	margin-right: 2vw;
 }
 .lastName {
-	padding: 5px;
+	width: 11.5vw;
 }
-.email {
-	padding: 5px;
-	margin-left: 45px;
+.buttons {
+	border-color: blue;
+	margin-top: 1vh;
+	padding: 1vw 20vh;
+	font-size: 20px;
+	font-weight: bolder;
+	margin-left: 0.5vw;
 }
-
-.password {
-	padding: 5px;
-	margin-left: 10px;
-}
-
-.confirmPassword {
-	padding: 5px;
-	margin-left: -67px;
-}
-
-.userWork {
-	padding: 5px;
-	margin-left: 0px;
-}
-
-.imageData {
-	padding: 5px;
-	margin-left: 36px;
-}
-.userDescription {
-	padding: 5px;
-	margin-left: -55px;
+.buttons:hover {
+	background-color: #3030db;
+	color: white;
+	font-weight: bold;
 }

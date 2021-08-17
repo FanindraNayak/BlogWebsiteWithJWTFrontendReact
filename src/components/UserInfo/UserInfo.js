@@ -1,22 +1,51 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useUserEmailStore } from "../../GlobalState";
+import React from "react";
+import { useUserData } from "../../GlobalState";
+import abc from "../../Images/abc.png";
 const UserInfo = () => {
-	const emailOfUser = useUserEmailStore((state) => state.emailOfUser);
-	const [userInfo, setUserInfo] = useState({});
-	useEffect(() => {
-		getUserInformation();
-	}, []);
-	const getUserInformation = async () => {
-		const url = `http://localhost:3012/api/user/getOneUser/${emailOfUser}`;
-		const res = await axios.get(url, {
-			withCredentials: true,
-		});
-		console.log(res);
-	};
+	const userData = useUserData((state) => state.userData);
+	let name = userData.firstName + userData.midName + userData.lastName;
 	return (
 		<div>
-			<h1>userInfo</h1>
+			<section
+				style={{
+					// border: "red solid 5px",
+					display: "grid",
+					gridTemplateColumns: "1fr 1fr",
+				}}
+			>
+				<div
+					style={{
+						width: "10vw",
+						marginLeft: "30vw",
+						marginTop: "10vh",
+					}}
+				>
+					<img
+						src={userData.imageData === "" ? abc : userData.imageData}
+						style={{
+							width: "200px",
+							borderRadius: "50%",
+							height: "200px",
+							padding: 5,
+							border: "red solid 3px",
+						}}
+						alt={name}
+					/>
+				</div>
+				<div
+					style={{
+						// border: "red solid 3px",
+						marginTop: "12vh",
+						marginLeft: "-5vw",
+						fontSize: 20,
+					}}
+				>
+					<p>Name :- {name} </p>
+					<p>Email :- {userData.email}</p>
+					<p>Info :- {userData.userDescription}</p>
+					<p>Work :- {userData.userWork}</p>
+				</div>
+			</section>
 		</div>
 	);
 };

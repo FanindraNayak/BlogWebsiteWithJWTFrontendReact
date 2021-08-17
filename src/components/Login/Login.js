@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
 import { loggedInStore } from "../../GlobalState";
-
 function Login() {
 	// axios.defaults.withCredentials = true;
 	const setLoggedIn = loggedInStore((state) => state.setLoggedIn);
@@ -11,7 +10,7 @@ function Login() {
 		email: "",
 		password: "",
 	});
-	const onChange = (e) => {
+	const handelChange = (e) => {
 		setLoginData({ ...loginData, [e.target.name]: e.target.value });
 	};
 
@@ -24,40 +23,44 @@ function Login() {
 			withCredentials: true,
 		});
 		if (res.data === "Logged In") {
-			setLoggedIn(true);
 			// Changing Url after user is logged in
+			console.log("kasdfjckldxnm");
 			history.push("/");
+			setLoggedIn(true);
+		} else {
+			setLoginData({
+				email: "",
+				password: "",
+			});
 		}
 	};
 
 	return (
 		<div className="loginForm">
-			<h1>Login</h1>
-			<form>
-				<div className="group">
-					<input
-						type="text"
-						name="email"
-						placeholder="Enter user email"
-						value={loginData.email}
-						onChange={onChange}
-					/>
-				</div>
-
-				<div className="group">
-					<input
-						type="password"
-						name="password"
-						placeholder="Enter password"
-						value={loginData.password}
-						onChange={onChange}
-					/>
-				</div>
+			<form className="form">
+				<input
+					className="email"
+					type="text"
+					value={loginData.email}
+					name="email"
+					onChange={handelChange}
+					placeholder="Email"
+				/>
+				<br />
+				<input
+					className="password"
+					type="Password"
+					value={loginData.password}
+					name="password"
+					onChange={handelChange}
+					placeholder="Password"
+				/>
+				<br />
+				<button className="button" type="submit" onClick={onLoginClick}>
+					Login
+				</button>
+				<p className="mt-2"></p>
 			</form>
-			<button onClick={onLoginClick}>Login</button>
-			<p className="mt-2">
-				Don't have account? <Link to="/signup">Signup</Link>
-			</p>
 		</div>
 	);
 }
